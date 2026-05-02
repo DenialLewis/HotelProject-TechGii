@@ -1,2 +1,2 @@
-# Hotel-Project---TechGii
+# HotelProject-TechGii
 This is a prototype project for TechGii's Portfolio...
