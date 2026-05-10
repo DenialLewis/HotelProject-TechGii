@@ -2,7 +2,6 @@ import React from "react";
 import {
   CalendarDays,
   ShieldCheck,
-  Sparkles,
   Stars
 } from "lucide-react";
 
@@ -71,15 +70,4 @@ export const stayPolicies = [
   "Free cancellation available up to 48 hours before arrival",
   "Breakfast service starts daily from 6:30 AM",
   "Front desk and concierge support available 24/7"
-];
-
-export const bookingTrustItems = [
-  {
-    icon: <ShieldCheck size={16} />,
-    label: "Secure reservation"
-  },
-  {
-    icon: <Sparkles size={16} />,
-    label: "Concierge-ready notes"
-  }
 ];
