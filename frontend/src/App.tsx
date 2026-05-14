@@ -109,7 +109,7 @@ const App: React.FC = () => {
             <span className="logo">
               <img src={dashboardLogo} alt={`${copy.brand.name} logo`} />
             </span>
-            <span className="brand-wordmark">{copy.brand.name}</span>
+            <span className="brand-wordmark sr-only">{copy.brand.name}</span>
           </button>
 
           <div className="nav-actions">
