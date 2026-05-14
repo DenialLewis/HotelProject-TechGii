@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  ConciergeBell,
-  Dumbbell,
-  MapPin,
-  Sparkles,
-  Utensils,
-  Waves,
-  Wifi
-} from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 
 import heroImg from "../assets/H1.png";
 import spaImg from "../assets/H2.png";
@@ -15,116 +7,92 @@ import roomImg from "../assets/H3.png";
 import po1 from "../assets/Po1.png";
 import po2 from "../assets/Po2.png";
 import po3 from "../assets/Po3.png";
+import { amenityIcons, type AppCopy } from "../data/translations";
 
-const HomePage: React.FC = () => {
+type HomePageProps = {
+  copy: AppCopy["home"];
+  onNavigate: (page: "home" | "services" | "book" | "contact") => void;
+};
+
+const HomePage: React.FC<HomePageProps> = ({ copy, onNavigate }) => {
   return (
     <>
       <section className="hero" style={{ backgroundImage: `url(${heroImg})` }}>
         <div className="hero-overlay">
-          <div className="hero-content">
-            <p className="eyebrow">Luxury stay in northern Thailand</p>
-            <h1>Tri Gong Hotel</h1>
-            <p>
-              Experience unparalleled luxury in Chiang Mai, where timeless
-              hospitality, modern comfort, and peaceful design meet.
-            </p>
-            <span className="location">
-              <MapPin size={16} />
-              Chiang Mai, Thailand
-            </span>
+          <div className="hero-content page-shell">
+            <div className="hero-copy">
+              <p className="eyebrow">{copy.eyebrow}</p>
+              <h1>{copy.title}</h1>
+              <p>{copy.description}</p>
+
+              <div className="hero-actions">
+                <button className="primary-button" onClick={() => onNavigate("book")} type="button">
+                  {copy.primaryAction}
+                </button>
+                <button className="ghost-button" onClick={() => onNavigate("services")} type="button">
+                  {copy.secondaryAction}
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+
+              <span className="location">
+                <MapPin size={16} />
+                {copy.location}
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      <main className="container">
-        <section className="legacy">
-          <div className="divider"></div>
-          <h2>Our Experience</h2>
+      <main className="page-shell page-content">
+        <section className="content-section split-story">
+          <div className="section-heading">
+            <div className="divider left"></div>
+            <h2>{copy.experienceTitle}</h2>
+            <p>{copy.description}</p>
+          </div>
 
-          <div className="legacy-images">
+          <div className="feature-image-grid">
             <div className="image-card">
-              <img src={spaImg} alt="Spa" />
-              <div className="image-overlay">Relaxing Spa</div>
+              <img src={spaImg} alt={copy.imageLabels[0]} />
+              <div className="image-overlay">{copy.imageLabels[0]}</div>
             </div>
-
             <div className="image-card">
-              <img src={roomImg} alt="Room" />
-              <div className="image-overlay">Comfort Rooms</div>
+              <img src={roomImg} alt={copy.imageLabels[1]} />
+              <div className="image-overlay">{copy.imageLabels[1]}</div>
             </div>
           </div>
         </section>
 
-        <section className="promotions">
-          <div className="divider"></div>
-          <h2>Special Offers & Highlights</h2>
+        <section className="content-section">
+          <div className="section-heading center">
+            <div className="divider"></div>
+            <h2>{copy.highlightsTitle}</h2>
+          </div>
 
           <div className="promo-grid">
-            <div className="promo-card">
-              <img src={po1} alt="Promotion" />
-            </div>
-
-            <div className="promo-card">
-              <img src={po2} alt="Travel Guide" />
-            </div>
-
-            <div className="promo-card">
-              <img src={po3} alt="Award" />
-            </div>
+            {[po1, po2, po3].map((image, index) => (
+              <div className="promo-card" key={image}>
+                <img src={image} alt={`${copy.highlightsTitle} ${index + 1}`} />
+              </div>
+            ))}
           </div>
         </section>
 
-        <section className="amenities">
-          <div className="divider"></div>
-          <h2>Exclusive Amenities</h2>
+        <section className="content-section">
+          <div className="section-heading center">
+            <div className="divider"></div>
+            <h2>{copy.amenitiesTitle}</h2>
+          </div>
 
-          <div className="amenities-grid">
-            <div className="amenity-card">
-              <div className="icon">
-                <Wifi size={22} />
-              </div>
-              <h3>High-Speed Wi-Fi</h3>
-              <p>Complimentary throughout the hotel</p>
-            </div>
-
-            <div className="amenity-card">
-              <div className="icon">
-                <Waves size={22} />
-              </div>
-              <h3>Infinity Pool</h3>
-              <p>Relax with panoramic views</p>
-            </div>
-
-            <div className="amenity-card">
-              <div className="icon">
-                <Sparkles size={22} />
-              </div>
-              <h3>Luxury Spa</h3>
-              <p>Premium wellness experience</p>
-            </div>
-
-            <div className="amenity-card">
-              <div className="icon">
-                <Utensils size={22} />
-              </div>
-              <h3>Dining</h3>
-              <p>Authentic Thai and international cuisine</p>
-            </div>
-
-            <div className="amenity-card">
-              <div className="icon">
-                <Dumbbell size={22} />
-              </div>
-              <h3>Fitness</h3>
-              <p>Fully equipped gym and wellness area</p>
-            </div>
-
-            <div className="amenity-card">
-              <div className="icon">
-                <ConciergeBell size={22} />
-              </div>
-              <h3>Service</h3>
-              <p>24/7 guest support for every stay</p>
-            </div>
+          <div className="feature-grid three-column">
+            {copy.amenities.map((item, index) => (
+              <article className="feature-card" key={item.title}>
+                <div className="icon">{amenityIcons[index]}</div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
           </div>
         </section>
       </main>
