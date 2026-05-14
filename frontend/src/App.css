@@ -14,10 +14,7 @@ body,
 
 body {
   font-family: "Manrope", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(201, 161, 94, 0.16), transparent 28%),
-    radial-gradient(circle at top right, rgba(77, 102, 105, 0.12), transparent 26%),
-    linear-gradient(180deg, #f7f1e7 0%, #f2eadf 42%, #fbf8f2 100%);
+  background: #f7f3ec;
   color: #1f1812;
 }
 
@@ -61,40 +58,57 @@ button {
   z-index: 100;
   width: 100%;
   padding: 0;
-  background: rgba(255, 250, 242, 0.94);
-  border-bottom: 1px solid rgba(126, 93, 46, 0.14);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 12px 26px rgba(52, 36, 17, 0.08);
+  background: #fffdf9;
+  border-bottom: 1px solid #e7ddcf;
+  box-shadow: 0 4px 18px rgba(52, 36, 17, 0.08);
+}
+
+.header-top {
+  background: #2a2119;
+  color: rgba(255, 248, 238, 0.78);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header-top-inner {
+  width: min(1240px, calc(100% - 48px));
+  min-height: 34px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
 }
 
 .nav-container {
   width: min(1240px, calc(100% - 48px));
   margin: 0 auto;
-  min-height: 84px;
+  min-height: 78px;
   padding: 8px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 22px;
+  gap: 28px;
 }
 
 .logo-button {
   display: flex;
   align-items: center;
+  gap: 12px;
   flex: 0 0 auto;
+  color: #241b13;
 }
 
 .logo {
-  width: 66px;
-  height: 66px;
+  width: 58px;
+  height: 58px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 18px;
-  padding: 4px;
-  background: rgba(108, 80, 42, 0.08);
-  border-color: rgba(126, 93, 46, 0.14);
-  border: 1px solid rgba(126, 93, 46, 0.14);
+  border-radius: 14px;
+  padding: 3px;
+  background: #f5efe5;
+  border: 1px solid #e1d5c4;
 }
 
 .logo img {
@@ -103,10 +117,18 @@ button {
   object-fit: contain;
 }
 
+.brand-wordmark {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.62rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   flex: 1;
   justify-content: flex-end;
   min-width: 0;
@@ -116,40 +138,37 @@ button {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 6px;
-  padding: 4px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.54);
-  border: 1px solid rgba(126, 93, 46, 0.1);
+  gap: 2px;
+  padding: 0;
 }
 
 .nav-link {
-  min-height: 42px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  color: #4a3d2f;
-  font-size: 0.9rem;
-  font-weight: 800;
+  min-height: 44px;
+  padding: 12px 13px;
+  border-radius: 0;
+  color: #4f463e;
+  font-size: 0.88rem;
+  font-weight: 700;
   line-height: 1.1;
   text-shadow: none;
   white-space: nowrap;
+  border-bottom: 2px solid transparent;
   transition:
-    transform 0.25s ease,
-    background 0.25s ease,
     color 0.25s ease,
-    box-shadow 0.25s ease;
+    border-color 0.25s ease,
+    background 0.25s ease;
 }
 
 .nav-link:hover {
-  transform: translateY(-1px);
-  color: #241b13;
-  background: rgba(197, 155, 89, 0.12);
+  color: #8a6330;
+  background: #fbf5eb;
 }
 
 .nav-link.active {
-  color: #fffefc;
-  background: linear-gradient(135deg, #c79d5c, #8e6834);
-  box-shadow: 0 10px 22px rgba(74, 49, 18, 0.24);
+  color: #8a6330;
+  background: transparent;
+  border-color: #c79d5c;
+  box-shadow: none;
 }
 
 .language-switcher {
@@ -157,13 +176,12 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.66);
-  border-color: rgba(126, 93, 46, 0.12);
-  border: 1px solid rgba(126, 93, 46, 0.12);
+  background: #f7f1e8;
+  border: 1px solid #e0d4c4;
   color: #3f3429;
   overflow: hidden;
 }
@@ -173,14 +191,14 @@ button {
 }
 
 .language-flag {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(197, 155, 89, 0.12);
-  font-size: 20px;
+  background: #fffdf9;
+  font-size: 18px;
   pointer-events: none;
 }
 
@@ -200,6 +218,25 @@ button {
 .language-switcher option {
   color: #241b13;
   background: #fffaf2;
+}
+
+.nav-cta {
+  min-height: 42px;
+  padding: 11px 18px;
+  border-radius: 4px;
+  background: #9b7138;
+  color: #fffaf2;
+  font-size: 0.86rem;
+  font-weight: 800;
+  white-space: nowrap;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.nav-cta:hover {
+  background: #7f5927;
+  transform: translateY(-1px);
 }
 
 .sr-only {
@@ -876,33 +913,44 @@ button {
 }
 
 @media (max-width: 860px) {
+  .header-top-inner {
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 6px 0;
+  }
+
   .nav-container {
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     min-height: auto;
-    padding: 8px 0;
+    padding: 10px 0;
   }
 
   .nav-actions {
     flex: 1;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
   }
 
   .site-nav {
     justify-content: flex-end;
-    gap: 4px;
+    gap: 0;
   }
 
   .nav-link {
-    min-height: 38px;
-    padding: 9px 10px;
-    font-size: 0.84rem;
+    min-height: 40px;
+    padding: 10px 9px;
+    font-size: 0.8rem;
   }
 
   .language-switcher {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-cta {
+    display: none;
   }
 
   .feature-image-grid,
@@ -933,13 +981,17 @@ button {
 
   .nav-container {
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 8px 0 10px;
+    justify-content: space-between;
+    padding: 10px 0 12px;
   }
 
   .logo {
-    width: 62px;
-    height: 62px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .brand-wordmark {
+    font-size: 1.36rem;
   }
 
   .nav-actions {
@@ -953,6 +1005,8 @@ button {
     justify-content: center;
     flex: 1;
     min-width: 0;
+    overflow-x: auto;
+    padding-bottom: 2px;
   }
 
   .language-switcher {
@@ -970,7 +1024,7 @@ button {
   .nav-link {
     min-height: 36px;
     padding: 8px 9px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   .hero,

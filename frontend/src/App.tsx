@@ -67,11 +67,20 @@ const App: React.FC = () => {
   return (
     <div className="app-shell">
       <header className={currentPage === "home" ? "navbar navbar-home" : "navbar navbar-elevated"}>
+        <div className="header-top">
+          <div className="header-top-inner">
+            <span>Chiang Mai Old City, Thailand</span>
+            <span>+66 53 000 888</span>
+            <span>stay@trigonghotel.com</span>
+          </div>
+        </div>
+
         <div className="nav-container">
           <button className="logo-button" onClick={() => setCurrentPage("home")} type="button">
             <span className="logo">
               <img src={dashboardLogo} alt={`${copy.brand.name} logo`} />
             </span>
+            <span className="brand-wordmark">{copy.brand.name}</span>
           </button>
 
           <div className="nav-actions">
@@ -105,6 +114,10 @@ const App: React.FC = () => {
                 ))}
               </select>
             </label>
+
+            <button className="nav-cta" onClick={() => setCurrentPage("book")} type="button">
+              {copy.nav.book}
+            </button>
           </div>
         </div>
       </header>
