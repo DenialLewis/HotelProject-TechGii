@@ -2,55 +2,59 @@ import React from "react";
 import { Check, Clock3, ShieldCheck, Sparkles } from "lucide-react";
 
 import {
-  bookingHighlights,
-  roomTypes,
-  stayPolicies,
+  type AppCopy,
+  type BookingHighlight,
   type RoomType
-} from "../data/bookingData";
+} from "../data/translations";
 
 type BookRoomPageProps = {
+  bookingHighlights: BookingHighlight[];
+  copy: AppCopy["booking"];
+  roomTypes: RoomType[];
   selectedRoom: RoomType;
   onSelectRoom: (room: RoomType) => void;
+  stayPolicies: string[];
 };
 
 const BookRoomPage: React.FC<BookRoomPageProps> = ({
+  bookingHighlights,
+  copy,
+  roomTypes,
   selectedRoom,
-  onSelectRoom
+  onSelectRoom,
+  stayPolicies
 }) => {
   return (
-    <main className="booking-page">
+    <main className="booking-page page-shell">
       <section className="booking-hero booking-shell">
         <div className="booking-hero-copy">
-          <p className="eyebrow booking-eyebrow">Reserve your stay</p>
-          <h1>Book Your Room</h1>
-          <p>
-            Review room options, enter your guest information, and send your
-            reservation request with a clean and comfortable booking flow.
-          </p>
+          <p className="eyebrow booking-eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.title}</h1>
+          <p>{copy.description}</p>
 
           <div className="booking-trust-row">
             <div className="trust-chip">
               <ShieldCheck size={16} />
-              Secure reservation
+              {copy.trustChips[0]}
             </div>
             <div className="trust-chip">
               <Clock3 size={16} />
-              Fast confirmation flow
+              {copy.trustChips[1]}
             </div>
             <div className="trust-chip">
               <Sparkles size={16} />
-              Concierge-ready notes
+              {copy.trustChips[2]}
             </div>
           </div>
         </div>
 
         <div className="booking-hero-card">
-          <p className="booking-card-label">Selected accommodation</p>
+          <p className="booking-card-label">{copy.selectedAccommodation}</p>
           <h3>{selectedRoom.title}</h3>
           <p>{selectedRoom.details}</p>
           <div className="booking-card-price">
             <span>{selectedRoom.price}</span>
-            <small>per night</small>
+            <small>{copy.perNight}</small>
           </div>
           <ul>
             {selectedRoom.perks.map((perk) => (
@@ -67,11 +71,8 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
         <div className="booking-form-panel">
           <div className="section-heading">
             <div className="divider left"></div>
-            <h2>Reservation Details</h2>
-            <p>
-              Complete the form below so our reservations team can prepare your
-              stay details carefully before arrival.
-            </p>
+            <h2>{copy.reservationDetails}</h2>
+            <p>{copy.reservationDescription}</p>
           </div>
 
           <form className="booking-form">
@@ -79,29 +80,26 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
               <div className="form-section-header">
                 <span>01</span>
                 <div>
-                  <h3>Guest Information</h3>
-                  <p>Primary contact details for the booking confirmation.</p>
+                  <h3>{copy.guestInfo}</h3>
+                  <p>{copy.guestInfoNote}</p>
                 </div>
               </div>
 
               <div className="form-grid">
                 <label>
-                  Full Name
+                  {copy.labels.fullName}
                   <input type="text" placeholder="Enter guest name" />
                 </label>
-
                 <label>
-                  Email Address
+                  {copy.labels.email}
                   <input type="email" placeholder="guest@email.com" />
                 </label>
-
                 <label>
-                  Phone Number
-                  <input type="tel" placeholder="+95 9 xxx xxx xxx" />
+                  {copy.labels.phone}
+                  <input type="tel" placeholder="+66 9 xxx xxx xxx" />
                 </label>
-
                 <label>
-                  Nationality
+                  {copy.labels.nationality}
                   <input type="text" placeholder="Enter nationality" />
                 </label>
               </div>
@@ -111,21 +109,18 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
               <div className="form-section-header">
                 <span>02</span>
                 <div>
-                  <h3>Stay Preferences</h3>
-                  <p>Choose your room, dates, and arrival preferences.</p>
+                  <h3>{copy.stayPreferences}</h3>
+                  <p>{copy.stayPreferencesNote}</p>
                 </div>
               </div>
 
               <div className="form-grid">
                 <label>
-                  Room Type
+                  {copy.labels.roomType}
                   <select
                     value={selectedRoom.title}
                     onChange={(event) => {
-                      const room = roomTypes.find(
-                        (item) => item.title === event.target.value
-                      );
-
+                      const room = roomTypes.find((item) => item.title === event.target.value);
                       if (room) {
                         onSelectRoom(room);
                       }
@@ -138,9 +133,8 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
                     ))}
                   </select>
                 </label>
-
                 <label>
-                  Guests
+                  {copy.labels.guests}
                   <select defaultValue="2 Adults">
                     <option>1 Adult</option>
                     <option>2 Adults</option>
@@ -148,28 +142,24 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
                     <option>Family of 4</option>
                   </select>
                 </label>
-
                 <label>
-                  Check-in Date
+                  {copy.labels.checkIn}
                   <input type="date" />
                 </label>
-
                 <label>
-                  Check-out Date
+                  {copy.labels.checkOut}
                   <input type="date" />
                 </label>
-
                 <label>
-                  Arrival Time
+                  {copy.labels.arrivalTime}
                   <select defaultValue="After 2:00 PM">
                     <option>After 2:00 PM</option>
                     <option>4:00 PM - 7:00 PM</option>
                     <option>After 7:00 PM</option>
                   </select>
                 </label>
-
                 <label>
-                  Add-on Preference
+                  {copy.labels.addOn}
                   <select defaultValue="Breakfast Included">
                     <option>Breakfast Included</option>
                     <option>Airport Pickup</option>
@@ -184,31 +174,27 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
               <div className="form-section-header">
                 <span>03</span>
                 <div>
-                  <h3>Special Notes</h3>
-                  <p>Share anything our team should prepare before arrival.</p>
+                  <h3>{copy.specialNotes}</h3>
+                  <p>{copy.specialNotesNote}</p>
                 </div>
               </div>
 
               <label>
-                Special Request
+                {copy.labels.specialRequest}
                 <textarea
                   rows={5}
-                  placeholder="Airport pickup details, dietary notes, celebration arrangement, or any room preference..."
+                  placeholder="Airport pickup details, dietary notes, celebration arrangement, or room preference..."
                 />
               </label>
             </div>
 
             <div className="form-footer">
               <div className="form-footer-copy">
-                <h3>Need assistance before you book?</h3>
-                <p>
-                  Our front desk can help with room advice, airport transfer,
-                  and special arrangements.
-                </p>
+                <h3>{copy.assistanceTitle}</h3>
+                <p>{copy.assistanceText}</p>
               </div>
-
               <button type="submit" className="primary-button">
-                Submit Booking Request
+                {copy.submit}
               </button>
             </div>
           </form>
@@ -217,57 +203,48 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
         <aside className="booking-sidebar">
           <div className="section-heading">
             <div className="divider left"></div>
-            <h2>Room Selection</h2>
-            <p>Compare room styles and choose the stay that fits your trip.</p>
+            <h2>{copy.roomSelection}</h2>
           </div>
 
           <div className="room-list">
             {roomTypes.map((room) => (
-              <article
-                className={
-                  room.title === selectedRoom.title
-                    ? "room-card room-card-selected"
-                    : "room-card"
-                }
+              <button
                 key={room.title}
+                className={
+                  selectedRoom.title === room.title ? "room-card room-card-selected" : "room-card"
+                }
+                type="button"
+                onClick={() => onSelectRoom(room)}
               >
                 <img src={room.image} alt={room.title} />
                 <div className="room-card-body">
                   <div className="room-card-top">
                     <h3>{room.title}</h3>
-                    <span>{room.price}/night</span>
+                    <span>{room.price}</span>
                   </div>
                   <p>{room.details}</p>
                   <ul className="room-perks">
                     {room.perks.map((perk) => (
                       <li key={perk}>
-                        <Check size={14} />
+                        <Check size={15} />
                         {perk}
                       </li>
                     ))}
                   </ul>
-                  <button
-                    type="button"
-                    className="secondary-button"
-                    onClick={() => onSelectRoom(room)}
-                  >
-                    {room.title === selectedRoom.title ? "Selected" : "Choose Room"}
-                  </button>
                 </div>
-              </article>
+              </button>
             ))}
           </div>
 
           <div className="booking-summary-card">
             <div className="summary-header">
-              <h3>Stay Policies</h3>
-              <span>Important notes</span>
+              <h3>{copy.policyTitle}</h3>
+              <span>{selectedRoom.title}</span>
             </div>
-
             <ul className="policy-list">
               {stayPolicies.map((policy) => (
                 <li key={policy}>
-                  <Check size={14} />
+                  <Check size={15} />
                   {policy}
                 </li>
               ))}
@@ -276,13 +253,13 @@ const BookRoomPage: React.FC<BookRoomPageProps> = ({
         </aside>
       </section>
 
-      <section className="booking-highlights booking-shell">
+      <section className="booking-highlights">
         {bookingHighlights.map((item) => (
-          <div className="booking-highlight-card" key={item.title}>
+          <article className="booking-highlight-card" key={item.title}>
             <div className="icon">{item.icon}</div>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
-          </div>
+          </article>
         ))}
       </section>
     </main>
