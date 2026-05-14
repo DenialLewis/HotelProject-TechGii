@@ -15,7 +15,7 @@ import heroImg from "../assets/H1.png";
 import spaImg from "../assets/H2.png";
 import roomImg from "../assets/H3.png";
 
-export type Language = "en" | "th" | "zh";
+export type Language = "en" | "th" | "zh" | "fr" | "hi" | "ja" | "ko" | "de" | "ru" | "id";
 
 export type RoomType = {
   title: string;
@@ -121,26 +121,26 @@ export const languageOptions = [
   { code: "zh" as const, flag: "🇨🇳", label: "中文" }
 ];
 
-const roomContent: Record<Language, RoomType[]> = {
+const baseRoomContent: Record<"en" | "th" | "zh", RoomType[]> = {
   en: [
     {
       title: "Deluxe King Room",
       details: "King bed | refined city outlook | signature breakfast",
-      price: "$120",
+      price: "THB 4,200",
       image: roomImg,
       perks: ["42 m2 calm living space", "Rain shower", "Executive desk"]
     },
     {
       title: "Premier Twin Suite",
       details: "Twin beds | private balcony | airport transfer",
-      price: "$150",
+      price: "THB 5,300",
       image: spaImg,
       perks: ["Garden-facing balcony", "Lounge seating", "Priority check-in"]
     },
     {
       title: "Tri Gong Signature Suite",
       details: "Lounge access | soaking tub | private concierge",
-      price: "$220",
+      price: "THB 7,800",
       image: heroImg,
       perks: ["Separate living room", "Evening turndown", "Late checkout"]
     }
@@ -149,21 +149,21 @@ const roomContent: Record<Language, RoomType[]> = {
     {
       title: "ห้องดีลักซ์คิง",
       details: "เตียงคิงไซซ์ | วิวเมือง | อาหารเช้าซิกเนเจอร์",
-      price: "$120",
+      price: "THB 4,200",
       image: roomImg,
       perks: ["พื้นที่พักผ่อน 42 ตร.ม.", "เรนชาวเวอร์", "โต๊ะทำงานระดับผู้บริหาร"]
     },
     {
       title: "พรีเมียร์ทวินสวีท",
       details: "เตียงคู่ | ระเบียงส่วนตัว | รถรับส่งสนามบิน",
-      price: "$150",
+      price: "THB 5,300",
       image: spaImg,
       perks: ["ระเบียงวิวสวน", "มุมนั่งเล่น", "เช็กอินแบบ Priority"]
     },
     {
       title: "Tri Gong Signature Suite",
       details: "สิทธิ์เข้าเลานจ์ | อ่างแช่ตัว | คอนเซียร์จส่วนตัว",
-      price: "$220",
+      price: "THB 7,800",
       image: heroImg,
       perks: ["ห้องนั่งเล่นแยกส่วน", "บริการจัดเตียงยามเย็น", "เช็กเอาต์ล่วงเวลา"]
     }
@@ -172,28 +172,28 @@ const roomContent: Record<Language, RoomType[]> = {
     {
       title: "豪华大床房",
       details: "大床 | 城市景观 | 招牌早餐",
-      price: "$120",
+      price: "THB 4,200",
       image: roomImg,
       perks: ["42 平方米雅致空间", "雨淋花洒", "行政书桌"]
     },
     {
       title: "尊贵双床套房",
       details: "双床 | 私人阳台 | 机场接送",
-      price: "$150",
+      price: "THB 5,300",
       image: spaImg,
       perks: ["花园景阳台", "休闲客厅区", "优先入住"]
     },
     {
       title: "Tri Gong 签名套房",
       details: "行政酒廊 | 浸泡浴缸 | 私人礼宾",
-      price: "$220",
+      price: "THB 7,800",
       image: heroImg,
       perks: ["独立起居室", "夜床服务", "延迟退房"]
     }
   ]
 };
 
-export const appCopy: Record<Language, AppCopy> = {
+const baseAppCopy: Record<"en" | "th" | "zh", AppCopy> = {
   en: {
     brand: {
       name: "Tri Gong Hotel",
@@ -523,6 +523,381 @@ export const appCopy: Record<Language, AppCopy> = {
       responseCommitment: "重要咨询将在一个工作日内回复。"
     }
   }
+};
+
+const localizedRoomContent: Record<Exclude<Language, "en" | "th" | "zh">, RoomType[]> = {
+  fr: [
+    {
+      title: "Chambre Deluxe King",
+      details: "Lit king | vue sur la ville | petit-dejeuner signature",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["Espace calme de 42 m2", "Douche pluie", "Bureau de travail"]
+    },
+    {
+      title: "Suite Premier Twin",
+      details: "Lits jumeaux | balcon prive | transfert aeroport",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["Balcon cote jardin", "Coin salon", "Enregistrement prioritaire"]
+    },
+    {
+      title: "Suite Signature Tri Gong",
+      details: "Acces lounge | baignoire | concierge prive",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["Salon separe", "Service du soir", "Depart tardif"]
+    }
+  ],
+  hi: [
+    {
+      title: "डीलक्स किंग रूम",
+      details: "किंग बेड | शहर का दृश्य | सिग्नेचर ब्रेकफास्ट",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["42 m2 शांत जगह", "रेन शॉवर", "वर्क डेस्क"]
+    },
+    {
+      title: "प्रीमियर ट्विन सुइट",
+      details: "ट्विन बेड | निजी बालकनी | एयरपोर्ट ट्रांसफर",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["गार्डन व्यू बालकनी", "लाउंज सीटिंग", "प्रायोरिटी चेक-इन"]
+    },
+    {
+      title: "Tri Gong सिग्नेचर सुइट",
+      details: "लाउंज एक्सेस | सोकिंग टब | निजी कंसीयज",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["अलग लिविंग रूम", "ईवनिंग टर्नडाउन", "लेट चेकआउट"]
+    }
+  ],
+  ja: [
+    {
+      title: "デラックス キングルーム",
+      details: "キングベッド | シティビュー | 朝食付き",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["42 m2 の落ち着いた空間", "レインシャワー", "ワークデスク"]
+    },
+    {
+      title: "プレミア ツインスイート",
+      details: "ツインベッド | 専用バルコニー | 空港送迎",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["ガーデンビューのバルコニー", "ラウンジ席", "優先チェックイン"]
+    },
+    {
+      title: "Tri Gong シグネチャースイート",
+      details: "ラウンジ利用 | バスタブ | 専任コンシェルジュ",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["独立したリビング", "ターンダウンサービス", "レイトチェックアウト"]
+    }
+  ],
+  ko: [
+    {
+      title: "디럭스 킹룸",
+      details: "킹 침대 | 도시 전망 | 시그니처 조식",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["42 m2의 편안한 공간", "레인 샤워", "업무용 데스크"]
+    },
+    {
+      title: "프리미어 트윈 스위트",
+      details: "트윈 침대 | 전용 발코니 | 공항 교통편",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["정원 전망 발코니", "라운지 좌석", "우선 체크인"]
+    },
+    {
+      title: "Tri Gong 시그니처 스위트",
+      details: "라운지 이용 | 욕조 | 전담 컨시어지",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["분리된 거실", "이브닝 턴다운", "늦은 체크아웃"]
+    }
+  ],
+  de: [
+    {
+      title: "Deluxe King Zimmer",
+      details: "Kingsize-Bett | Stadtblick | Signature-Fruehstueck",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["42 m2 ruhiger Wohnbereich", "Regendusche", "Arbeitsschreibtisch"]
+    },
+    {
+      title: "Premier Twin Suite",
+      details: "Twin-Betten | privater Balkon | Flughafentransfer",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["Balkon mit Gartenblick", "Lounge-Sitzbereich", "Prioritaets-Check-in"]
+    },
+    {
+      title: "Tri Gong Signature Suite",
+      details: "Lounge-Zugang | Badewanne | privater Concierge",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["Separates Wohnzimmer", "Abendlicher Turndown", "Spaeter Check-out"]
+    }
+  ],
+  ru: [
+    {
+      title: "Делюкс с кроватью King",
+      details: "Кровать king | вид на город | фирменный завтрак",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["42 m2 спокойного пространства", "Тропический душ", "Рабочий стол"]
+    },
+    {
+      title: "Премьер Твин Сьют",
+      details: "Две кровати | частный балкон | трансфер из аэропорта",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["Балкон с видом на сад", "Зона отдыха", "Приоритетный заезд"]
+    },
+    {
+      title: "Фирменный сьют Tri Gong",
+      details: "Доступ в лаунж | ванна | личный консьерж",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["Отдельная гостиная", "Вечерний сервис", "Поздний выезд"]
+    }
+  ],
+  id: [
+    {
+      title: "Kamar Deluxe King",
+      details: "Tempat tidur king | pemandangan kota | sarapan khas",
+      price: "THB 4,200",
+      image: roomImg,
+      perks: ["Ruang tenang 42 m2", "Rain shower", "Meja kerja"]
+    },
+    {
+      title: "Suite Premier Twin",
+      details: "Tempat tidur twin | balkon pribadi | antar-jemput bandara",
+      price: "THB 5,300",
+      image: spaImg,
+      perks: ["Balkon menghadap taman", "Area duduk lounge", "Check-in prioritas"]
+    },
+    {
+      title: "Suite Signature Tri Gong",
+      details: "Akses lounge | bathtub | concierge pribadi",
+      price: "THB 7,800",
+      image: heroImg,
+      perks: ["Ruang tamu terpisah", "Layanan turndown", "Check-out terlambat"]
+    }
+  ]
+};
+
+const createLocalizedCopy = (
+  data: {
+    nav: AppCopy["nav"];
+    tagline: string;
+    homeTitle: string;
+    homeDescription: string;
+    primaryAction: string;
+    secondaryAction: string;
+    experienceTitle: string;
+    highlightsTitle: string;
+    amenitiesTitle: string;
+    bookingTitle: string;
+    bookingDescription: string;
+    roomSelection: string;
+    guestInfo: string;
+    submit: string;
+    servicesTitle: string;
+    servicesDescription: string;
+    contactTitle: string;
+    contactDescription: string;
+  }
+): AppCopy => ({
+  ...baseAppCopy.en,
+  brand: {
+    ...baseAppCopy.en.brand,
+    tagline: data.tagline
+  },
+  nav: data.nav,
+  home: {
+    ...baseAppCopy.en.home,
+    title: data.homeTitle,
+    description: data.homeDescription,
+    primaryAction: data.primaryAction,
+    secondaryAction: data.secondaryAction,
+    experienceTitle: data.experienceTitle,
+    highlightsTitle: data.highlightsTitle,
+    amenitiesTitle: data.amenitiesTitle
+  },
+  booking: {
+    ...baseAppCopy.en.booking,
+    title: data.bookingTitle,
+    description: data.bookingDescription,
+    roomSelection: data.roomSelection,
+    guestInfo: data.guestInfo,
+    submit: data.submit
+  },
+  services: {
+    ...baseAppCopy.en.services,
+    title: data.servicesTitle,
+    description: data.servicesDescription
+  },
+  contact: {
+    ...baseAppCopy.en.contact,
+    title: data.contactTitle,
+    description: data.contactDescription
+  }
+});
+
+const localizedAppCopy: Record<Exclude<Language, "en" | "th" | "zh">, AppCopy> = {
+  fr: createLocalizedCopy({
+    nav: { home: "Accueil", services: "Services & Equipements", book: "Reserver", contact: "Contact", languageLabel: "Langue" },
+    tagline: "Une adresse elegante pour loisirs et voyages d'affaires",
+    homeTitle: "Un refuge raffine pour les voyageurs modernes",
+    homeDescription: "Tri Gong Hotel associe chaleur thai, confort moderne et service attentif a Chiang Mai.",
+    primaryAction: "Reserver un sejour",
+    secondaryAction: "Voir les services",
+    experienceTitle: "Des sejours calmes avec un vrai sens du lieu",
+    highlightsTitle: "Offres signature et moments choisis",
+    amenitiesTitle: "Equipements exclusifs",
+    bookingTitle: "Reserver une chambre",
+    bookingDescription: "Choisissez votre chambre, vos dates et indiquez les informations necessaires.",
+    roomSelection: "Choisir une chambre",
+    guestInfo: "Informations client",
+    submit: "Envoyer la demande",
+    servicesTitle: "Services simples, confort et hospitalite soignee",
+    servicesDescription: "Nos services rendent chaque arrivee, sejour et depart plus faciles.",
+    contactTitle: "Contacter notre equipe",
+    contactDescription: "Pour chambres, transferts ou demandes speciales, notre equipe vous aide."
+  }),
+  hi: createLocalizedCopy({
+    nav: { home: "होम", services: "सेवाएं और सुविधाएं", book: "कमरा बुक करें", contact: "संपर्क", languageLabel: "भाषा" },
+    tagline: "आराम और बिजनेस यात्रा के लिए सुंदर होटल",
+    homeTitle: "आधुनिक यात्रियों के लिए शांत और आरामदायक ठहराव",
+    homeDescription: "Tri Gong Hotel चियांग माई में थाई आतिथ्य, आधुनिक सुविधा और ध्यानपूर्ण सेवा देता है।",
+    primaryAction: "स्टे बुक करें",
+    secondaryAction: "सेवाएं देखें",
+    experienceTitle: "आरामदायक ठहराव और स्थानीय अनुभव",
+    highlightsTitle: "विशेष ऑफर और चुने हुए अनुभव",
+    amenitiesTitle: "मुख्य सुविधाएं",
+    bookingTitle: "कमरा बुक करें",
+    bookingDescription: "अपना कमरा, तारीखें और मेहमानों की जानकारी चुनें।",
+    roomSelection: "कमरा चुनें",
+    guestInfo: "मेहमान जानकारी",
+    submit: "बुकिंग अनुरोध भेजें",
+    servicesTitle: "आराम, सुविधा और अच्छी सेवा",
+    servicesDescription: "हर सेवा आपके ठहराव को आसान और सुखद बनाती है।",
+    contactTitle: "हमारी टीम से संपर्क करें",
+    contactDescription: "कमरा, ट्रांसफर या विशेष अनुरोध के लिए हमारी टीम मदद करेगी।"
+  }),
+  ja: createLocalizedCopy({
+    nav: { home: "ホーム", services: "サービス・設備", book: "客室予約", contact: "お問い合わせ", languageLabel: "言語" },
+    tagline: "休暇にもビジネスにも心地よいホテル",
+    homeTitle: "現代の旅行者のための上質な滞在",
+    homeDescription: "Tri Gong Hotel はチェンマイでタイらしい温かさと快適なサービスを提供します。",
+    primaryAction: "宿泊を予約",
+    secondaryAction: "サービスを見る",
+    experienceTitle: "落ち着いた雰囲気の快適な滞在",
+    highlightsTitle: "おすすめプランと特別な時間",
+    amenitiesTitle: "主な設備",
+    bookingTitle: "客室予約",
+    bookingDescription: "客室、日程、人数を選んで予約情報を入力してください。",
+    roomSelection: "客室を選択",
+    guestInfo: "宿泊者情報",
+    submit: "予約リクエストを送信",
+    servicesTitle: "快適さと丁寧なおもてなし",
+    servicesDescription: "到着から出発までスムーズに過ごせるサービスをご用意しています。",
+    contactTitle: "お問い合わせ",
+    contactDescription: "客室、送迎、特別なご希望についてお気軽にご連絡ください。"
+  }),
+  ko: createLocalizedCopy({
+    nav: { home: "홈", services: "서비스 및 시설", book: "객실 예약", contact: "문의", languageLabel: "언어" },
+    tagline: "휴식과 비즈니스 여행을 위한 품격 있는 호텔",
+    homeTitle: "현대 여행자를 위한 세련된 휴식 공간",
+    homeDescription: "Tri Gong Hotel은 치앙마이에서 태국식 환대와 편안한 서비스를 제공합니다.",
+    primaryAction: "숙박 예약",
+    secondaryAction: "서비스 보기",
+    experienceTitle: "차분하고 편안한 숙박 경험",
+    highlightsTitle: "추천 혜택과 특별한 순간",
+    amenitiesTitle: "주요 편의시설",
+    bookingTitle: "객실 예약",
+    bookingDescription: "객실, 날짜, 인원을 선택하고 예약 정보를 입력하세요.",
+    roomSelection: "객실 선택",
+    guestInfo: "투숙객 정보",
+    submit: "예약 요청 보내기",
+    servicesTitle: "편안함과 세심한 서비스",
+    servicesDescription: "도착부터 출발까지 편안한 숙박을 돕는 서비스를 제공합니다.",
+    contactTitle: "문의하기",
+    contactDescription: "객실, 이동편, 특별 요청은 저희 팀에 문의하세요."
+  }),
+  de: createLocalizedCopy({
+    nav: { home: "Start", services: "Services & Ausstattung", book: "Zimmer buchen", contact: "Kontakt", languageLabel: "Sprache" },
+    tagline: "Eine elegante Adresse fuer Freizeit- und Geschaeftsreisen",
+    homeTitle: "Ein stilvoller Rueckzugsort fuer moderne Reisende",
+    homeDescription: "Tri Gong Hotel verbindet thailaendische Waerme, Komfort und aufmerksamen Service in Chiang Mai.",
+    primaryAction: "Aufenthalt buchen",
+    secondaryAction: "Services ansehen",
+    experienceTitle: "Ruhige Aufenthalte mit Sinn fuer Ort und Komfort",
+    highlightsTitle: "Besondere Angebote und Momente",
+    amenitiesTitle: "Wichtige Ausstattung",
+    bookingTitle: "Zimmer buchen",
+    bookingDescription: "Waehlen Sie Zimmer, Daten und Gaeste aus und geben Sie Ihre Details ein.",
+    roomSelection: "Zimmer auswaehlen",
+    guestInfo: "Gaesteinformationen",
+    submit: "Buchungsanfrage senden",
+    servicesTitle: "Komfort, Service und gepflegte Gastfreundschaft",
+    servicesDescription: "Unsere Services machen Ankunft, Aufenthalt und Abreise einfach.",
+    contactTitle: "Kontaktieren Sie unser Team",
+    contactDescription: "Bei Zimmerfragen, Transfers oder Sonderwuenschen helfen wir gerne."
+  }),
+  ru: createLocalizedCopy({
+    nav: { home: "Главная", services: "Услуги и удобства", book: "Забронировать", contact: "Контакты", languageLabel: "Язык" },
+    tagline: "Элегантный отель для отдыха и деловых поездок",
+    homeTitle: "Стильное место для современных путешественников",
+    homeDescription: "Tri Gong Hotel сочетает тайское гостеприимство, комфорт и внимательный сервис в Чиангмае.",
+    primaryAction: "Забронировать",
+    secondaryAction: "Смотреть услуги",
+    experienceTitle: "Спокойный отдых с ощущением места",
+    highlightsTitle: "Специальные предложения и моменты",
+    amenitiesTitle: "Основные удобства",
+    bookingTitle: "Забронировать номер",
+    bookingDescription: "Выберите номер, даты и гостей, затем заполните данные.",
+    roomSelection: "Выбрать номер",
+    guestInfo: "Информация гостя",
+    submit: "Отправить запрос",
+    servicesTitle: "Комфорт, приватность и заботливый сервис",
+    servicesDescription: "Наши услуги делают приезд, проживание и выезд проще.",
+    contactTitle: "Свяжитесь с нашей командой",
+    contactDescription: "Мы поможем с номерами, трансфером и особыми запросами."
+  }),
+  id: createLocalizedCopy({
+    nav: { home: "Beranda", services: "Layanan & Fasilitas", book: "Pesan Kamar", contact: "Kontak", languageLabel: "Bahasa" },
+    tagline: "Hotel elegan untuk liburan dan perjalanan bisnis",
+    homeTitle: "Tempat menginap nyaman untuk wisatawan modern",
+    homeDescription: "Tri Gong Hotel menghadirkan keramahan Thailand, kenyamanan modern, dan layanan penuh perhatian di Chiang Mai.",
+    primaryAction: "Pesan Menginap",
+    secondaryAction: "Lihat Layanan",
+    experienceTitle: "Menginap tenang dengan suasana khas",
+    highlightsTitle: "Penawaran khusus dan momen pilihan",
+    amenitiesTitle: "Fasilitas utama",
+    bookingTitle: "Pesan Kamar",
+    bookingDescription: "Pilih kamar, tanggal, dan jumlah tamu, lalu isi detail pemesanan.",
+    roomSelection: "Pilih kamar",
+    guestInfo: "Informasi tamu",
+    submit: "Kirim permintaan booking",
+    servicesTitle: "Kenyamanan, privasi, dan layanan rapi",
+    servicesDescription: "Setiap layanan dibuat agar kedatangan, menginap, dan pulang terasa mudah.",
+    contactTitle: "Hubungi tim kami",
+    contactDescription: "Untuk kamar, transportasi, atau permintaan khusus, tim kami siap membantu."
+  })
+};
+
+const roomContent: Record<Language, RoomType[]> = {
+  ...baseRoomContent,
+  ...localizedRoomContent
+};
+
+export const appCopy: Record<Language, AppCopy> = {
+  ...baseAppCopy,
+  ...localizedAppCopy
 };
 
 export const amenityIcons = [
