@@ -99,7 +99,7 @@ button {
 .logo-button {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex: 0 0 auto;
   color: #241b13;
   transition: transform 0.25s ease;
@@ -110,21 +110,23 @@ button {
 }
 
 .logo {
-  width: 58px;
+  width: 230px;
   height: 58px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  padding: 3px;
-  background: #f5efe5;
-  border: 1px solid #e1d5c4;
+  justify-content: flex-start;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: left center;
   transition: transform 0.35s ease;
 }
 
@@ -134,10 +136,11 @@ button {
 
 .brand-wordmark {
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.62rem;
+  font-size: 1.78rem;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
+  letter-spacing: 0;
 }
 
 .nav-actions {
@@ -424,14 +427,14 @@ button {
 }
 
 .hero {
-  min-height: 720px;
+  min-height: calc(100vh - 112px);
   background-size: cover;
-  background-position: center;
+  background-position: center 36%;
   animation: heroDrift 16s ease-in-out infinite alternate;
 }
 
 .hero-overlay {
-  min-height: 720px;
+  min-height: calc(100vh - 112px);
   display: flex;
   align-items: center;
   background: linear-gradient(
@@ -771,40 +774,36 @@ button {
 }
 
 .home-page .scroll-reveal {
-  transform: translateY(34px);
+  opacity: 0;
+  transform: translateY(44px);
   animation: none;
   transition:
+    opacity 0.72s ease,
     transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
     clip-path 0.72s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--scroll-delay, 0ms);
-  will-change: transform, clip-path;
+  will-change: opacity, transform;
 }
 
 .home-page .scroll-reveal.is-visible {
+  opacity: 1;
   transform: translateY(0);
 }
 
 .home-page .image-card.scroll-reveal,
 .home-page .promo-card.scroll-reveal {
-  transform: translateX(var(--reveal-x, 46px)) scale(0.96);
-  clip-path: inset(0 0 0 18% round 28px);
-}
-
-.home-page .image-card.scroll-reveal:nth-child(odd),
-.home-page .promo-card.scroll-reveal:nth-child(odd) {
-  --reveal-x: -46px;
-  clip-path: inset(0 18% 0 0 round 28px);
+  transform: translateY(44px);
+  clip-path: none;
 }
 
 .home-page .image-card.scroll-reveal.is-visible,
 .home-page .promo-card.scroll-reveal.is-visible {
-  transform: translateX(0) scale(1);
-  clip-path: inset(0 0 0 0 round 28px);
+  transform: translateY(0);
 }
 
 .home-page .image-card.scroll-reveal.is-visible:hover,
 .home-page .promo-card.scroll-reveal.is-visible:hover {
-  transform: translateY(-4px) scale(1);
+  transform: translateY(-4px);
 }
 
 .home-page .scroll-reveal.delay-1 {
@@ -813,6 +812,33 @@ button {
 
 .home-page .scroll-reveal.delay-2 {
   --scroll-delay: 180ms;
+}
+
+.services-page .service-reveal {
+  opacity: 0;
+  transform: translateY(44px);
+  transition:
+    opacity 0.72s ease,
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--scroll-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.services-page .service-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.services-page .service-reveal.delay-1 {
+  --scroll-delay: 90ms;
+}
+
+.services-page .service-reveal.delay-2 {
+  --scroll-delay: 180ms;
+}
+
+.services-page .service-reveal.delay-3 {
+  --scroll-delay: 270ms;
 }
 
 .feature-card:hover,
@@ -1238,6 +1264,17 @@ button {
   line-height: 1.7;
 }
 
+.service-room-price {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #7f5927 !important;
+  font-size: 1.28rem !important;
+  font-weight: 900 !important;
+  line-height: 1.1;
+  box-shadow: none;
+}
+
 .room-rate-note {
   width: fit-content;
   margin-top: 12px;
@@ -1260,8 +1297,9 @@ button {
 .travel-room-action strong,
 .selected-room-price strong {
   color: #8d6832;
-  font-size: 1.28rem;
+  font-size: 1.72rem;
   line-height: 1.1;
+  font-weight: 900;
 }
 
 .travel-room-action span,
@@ -1446,6 +1484,136 @@ button {
 .simple-contact-note p {
   color: #665c53;
   line-height: 1.75;
+}
+
+.room-facility-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid rgba(126, 93, 46, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(251, 245, 235, 0.52)),
+    #fffaf2;
+  box-shadow: 0 18px 38px rgba(52, 36, 17, 0.07);
+}
+
+.room-facility-item {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 14px;
+  min-height: 132px;
+  padding: 22px;
+  border: 1px solid rgba(126, 93, 46, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 22px rgba(52, 36, 17, 0.045);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.room-facility-item:hover {
+  border-color: rgba(199, 157, 92, 0.34);
+  background: #fffdf9;
+  box-shadow: 0 16px 30px rgba(52, 36, 17, 0.08);
+  transform: translateY(-3px);
+}
+
+.room-facility-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  color: #fffaf2;
+  background: linear-gradient(135deg, #c79d5c, #8e6834);
+  box-shadow: 0 12px 24px rgba(142, 104, 52, 0.16);
+  line-height: 1;
+}
+
+.room-facility-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.room-facility-item h3 {
+  margin-bottom: 7px;
+  color: #28221c;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.04rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.room-facility-item p {
+  color: #756b62;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.location-section {
+  padding: 8px 0 0;
+}
+
+.location-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.location-map,
+.location-details article {
+  border: 1px solid rgba(126, 93, 46, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 24px rgba(52, 36, 17, 0.06);
+}
+
+.location-map {
+  min-height: 270px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  color: #8d6832;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(251, 245, 235, 0.88)),
+    repeating-linear-gradient(45deg, rgba(199, 157, 92, 0.12) 0 2px, transparent 2px 18px);
+}
+
+.location-map span {
+  color: #241b13;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.location-details {
+  display: grid;
+  gap: 14px;
+}
+
+.location-details article {
+  padding: 20px;
+}
+
+.location-details h3 {
+  margin-bottom: 6px;
+  color: #261d15;
+  font-size: 1.08rem;
+}
+
+.location-details p {
+  color: #665c53;
+  line-height: 1.7;
 }
 
 .simple-contact-list {
@@ -1747,11 +1915,11 @@ button {
 
 @keyframes heroDrift {
   from {
-    background-position: center center;
+    background-position: center 36%;
   }
 
   to {
-    background-position: center 42%;
+    background-position: center 30%;
   }
 }
 
@@ -1783,6 +1951,11 @@ button {
     transform: none;
     clip-path: none;
   }
+
+  .services-page .service-reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (max-width: 1080px) {
@@ -1796,8 +1969,13 @@ button {
   .travel-booking-layout,
   .guest-booking-layout,
   .booking-search-bar,
+  .location-panel,
   .simple-contact-list {
     grid-template-columns: 1fr;
+  }
+
+  .room-facility-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .travel-room-card {
@@ -1873,6 +2051,11 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .room-facility-grid {
+    gap: 14px;
+    padding: 14px;
+  }
+
   .service-room-card img {
     height: 240px;
   }
@@ -1905,12 +2088,12 @@ button {
   }
 
   .logo {
-    width: 54px;
-    height: 54px;
+    width: 190px;
+    height: 50px;
   }
 
   .brand-wordmark {
-    font-size: 1.36rem;
+    font-size: 1.42rem;
   }
 
   .nav-actions {
@@ -1961,7 +2144,7 @@ button {
 
   .hero,
   .hero-overlay {
-    min-height: 640px;
+    min-height: calc(100vh - 138px);
   }
 
   .hero-copy h1,
@@ -2008,5 +2191,18 @@ button {
 
   .service-room-card img {
     height: 210px;
+  }
+
+  .room-facility-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .room-facility-item h3 {
+    font-size: 1rem;
+  }
+
+  .location-map {
+    min-height: 210px;
   }
 }
