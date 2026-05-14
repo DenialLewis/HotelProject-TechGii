@@ -15,50 +15,31 @@ const detailIcons = [
 
 const ContactPage: React.FC<ContactPageProps> = ({ copy }) => {
   return (
-    <main className="page-shell page-content">
-      <section className="inner-hero">
+    <main className="page-shell page-content simple-contact-page">
+      <section className="simple-page-header">
         <div className="section-heading">
-          <p className="eyebrow booking-eyebrow">{copy.eyebrow}</p>
           <h1>{copy.title}</h1>
           <p>{copy.description}</p>
         </div>
       </section>
 
-      <section className="contact-layout">
-        <div className="content-section contact-panel">
-          <div className="section-heading">
-            <div className="divider left"></div>
-            <h2>{copy.detailsTitle}</h2>
-          </div>
+      <section className="simple-contact-list" aria-label={copy.detailsTitle}>
+        {copy.details.map((item, index) => (
+          <article className="simple-contact-item" key={item.label}>
+            <div className="icon">{detailIcons[index]}</div>
+            <div>
+              <h2>{item.label}</h2>
+              <strong>{item.value}</strong>
+              <p>{item.note}</p>
+            </div>
+          </article>
+        ))}
+      </section>
 
-          <div className="contact-list">
-            {copy.details.map((item, index) => (
-              <article className="contact-card" key={item.label}>
-                <div className="icon">{detailIcons[index]}</div>
-                <h3>{item.label}</h3>
-                <strong>{item.value}</strong>
-                <p>{item.note}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <aside className="content-section contact-panel contact-aside">
-          <div className="section-heading">
-            <div className="divider left"></div>
-            <h2>{copy.inquiryTitle}</h2>
-            <p>{copy.inquiryText}</p>
-          </div>
-
-          <div className="contact-note">
-            <h3>{copy.arrivalTitle}</h3>
-            <p>{copy.arrivalText}</p>
-          </div>
-
-          <div className="contact-commitment">
-            <span>{copy.responseCommitment}</span>
-          </div>
-        </aside>
+      <section className="simple-contact-note">
+        <h2>{copy.inquiryTitle}</h2>
+        <p>{copy.inquiryText}</p>
+        <span>{copy.responseCommitment}</span>
       </section>
     </main>
   );

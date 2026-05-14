@@ -1,14 +1,11 @@
 import React, { useState } from "react";
+import { Check } from "lucide-react";
 import "./App.css";
 
 import dashboardLogo from "./assets/Dashboard.png";
 import {
   appCopy,
-  getBookingHighlights,
   getRoomTypes,
-  getStayPolicies,
-  languageOptions,
-  type Language,
   type RoomType
 } from "./data/translations";
 import BookRoomPage from "./pages/BookRoomPage";
@@ -17,17 +14,51 @@ import HomePage from "./pages/HomePage";
 import ServicesPage from "./pages/ServicesPage";
 
 type PageView = "home" | "services" | "book" | "contact";
+type DisplayLanguageCode =
+  | "en"
+  | "th"
+  | "zh"
+  | "fr"
+  | "hi"
+  | "ja"
+  | "ko"
+  | "de"
+  | "ru"
+  | "id";
+
+type DisplayLanguage = {
+  code: DisplayLanguageCode;
+  label: string;
+  flag: string;
+  suggested?: boolean;
+};
+
+const displayLanguages: DisplayLanguage[] = [
+  { code: "en", label: "English (US)", flag: "us", suggested: true },
+  { code: "th", label: "ภาษาไทย", flag: "th", suggested: true },
+  { code: "zh", label: "简体中文", flag: "cn", suggested: true },
+  { code: "fr", label: "Français", flag: "fr", suggested: true },
+  { code: "hi", label: "हिन्दी", flag: "in", suggested: true },
+  { code: "ja", label: "日本語", flag: "jp" },
+  { code: "ko", label: "한국어", flag: "kr" },
+  { code: "de", label: "Deutsch", flag: "de" },
+  { code: "ru", label: "Русский", flag: "ru" },
+  { code: "id", label: "Bahasa Indonesia", flag: "id" }
+];
 
 const App: React.FC = () => {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<DisplayLanguageCode>("en");
+  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<PageView>("home");
-  const roomTypes = getRoomTypes(language);
-  const copy = appCopy[language];
+  const currentLanguage = displayLanguages.find((option) => option.code === language) ?? displayLanguages[0];
+  const roomTypes = getRoomTypes(currentLanguage.code);
+  const copy = appCopy[currentLanguage.code];
   const [selectedRoom, setSelectedRoom] = useState<RoomType>(roomTypes[0]);
 
-  const handleLanguageChange = (nextLanguage: Language) => {
+  const handleLanguageChange = (nextLanguage: DisplayLanguageCode) => {
     setLanguage(nextLanguage);
     setSelectedRoom(getRoomTypes(nextLanguage)[0]);
+    setIsLanguageModalOpen(false);
   };
 
   const navItems: Array<{ key: PageView; label: string }> = [
@@ -37,22 +68,20 @@ const App: React.FC = () => {
     { key: "contact", label: copy.nav.contact }
   ];
 
-  const currentLanguage = languageOptions.find((option) => option.code === language);
+  const suggestedLanguages = displayLanguages.filter((option) => option.suggested);
 
   const renderPage = () => {
     if (currentPage === "services") {
-      return <ServicesPage copy={copy.services} />;
+      return <ServicesPage copy={copy.services} roomTypes={roomTypes} />;
     }
 
     if (currentPage === "book") {
       return (
         <BookRoomPage
-          bookingHighlights={getBookingHighlights(language)}
           copy={copy.booking}
           roomTypes={roomTypes}
           selectedRoom={selectedRoom}
           onSelectRoom={setSelectedRoom}
-          stayPolicies={getStayPolicies(language)}
         />
       );
     }
@@ -97,23 +126,16 @@ const App: React.FC = () => {
               ))}
             </nav>
 
-            <label className="language-switcher" aria-label={copy.nav.languageLabel}>
+            <button
+              className="language-switcher"
+              aria-label={copy.nav.languageLabel}
+              type="button"
+              onClick={() => setIsLanguageModalOpen(true)}
+            >
               <span className="language-flag" aria-hidden="true">
-                {currentLanguage?.flag}
+                <span className={`flag-image flag-${currentLanguage.flag}`} />
               </span>
-              <span className="sr-only">{copy.nav.languageLabel}</span>
-              <select
-                value={language}
-                onChange={(event) => handleLanguageChange(event.target.value as Language)}
-                aria-label={copy.nav.languageLabel}
-              >
-                {languageOptions.map((option) => (
-                  <option key={option.code} value={option.code}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            </button>
 
             <button className="nav-cta" onClick={() => setCurrentPage("book")} type="button">
               {copy.nav.book}
@@ -122,7 +144,62 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {renderPage()}
+      <div className="page-transition" key={`${currentPage}-${language}`}>
+        {renderPage()}
+      </div>
+
+      {isLanguageModalOpen && (
+        <div className="language-modal-backdrop" role="presentation">
+          <section className="language-modal" role="dialog" aria-modal="true" aria-labelledby="language-title">
+            <div className="language-modal-header">
+              <h2 id="language-title">Select your language</h2>
+              <button type="button" onClick={() => setIsLanguageModalOpen(false)} aria-label="Close language menu">
+                ×
+              </button>
+            </div>
+
+            <div className="language-section">
+              <h3>Suggested for you</h3>
+              <div className="language-grid">
+                {suggestedLanguages.map((option) => (
+                  <button
+                    className={language === option.code ? "language-option selected" : "language-option"}
+                    key={option.code}
+                    type="button"
+                    onClick={() => handleLanguageChange(option.code)}
+                  >
+                    <span className="language-option-flag">
+                      <span className={`flag-image flag-${option.flag}`} />
+                    </span>
+                    <span>{option.label}</span>
+                    {language === option.code && <Check size={18} />}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="language-section">
+              <h3>All languages</h3>
+              <div className="language-grid">
+                {displayLanguages.map((option) => (
+                  <button
+                    className={language === option.code ? "language-option selected" : "language-option"}
+                    key={option.code}
+                    type="button"
+                    onClick={() => handleLanguageChange(option.code)}
+                  >
+                    <span className="language-option-flag">
+                      <span className={`flag-image flag-${option.flag}`} />
+                    </span>
+                    <span>{option.label}</span>
+                    {language === option.code && <Check size={18} />}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
 
       <footer className="site-footer">
         <div className="page-shell footer-grid">
