@@ -419,6 +419,10 @@ button {
   display: none;
 }
 
+.mobile-nav-backdrop {
+  display: none;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2084,7 +2088,7 @@ button {
   body {
     padding-bottom: 0;
     background:
-      linear-gradient(180deg, #fffaf2 0%, #f5ecdf 42%, #fffaf2 100%);
+      linear-gradient(180deg, #fffdf9 0%, #f6efe5 48%, #fffaf2 100%);
   }
 
   .page-shell,
@@ -2095,10 +2099,11 @@ button {
 
   .navbar {
     position: sticky;
-    background: rgba(255, 253, 249, 0.92);
+    z-index: 300;
+    background: rgba(255, 253, 249, 0.96);
     border-bottom-color: rgba(199, 157, 92, 0.16);
-    backdrop-filter: blur(18px);
-    box-shadow: 0 10px 26px rgba(45, 31, 14, 0.08);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 10px 24px rgba(45, 31, 14, 0.07);
   }
 
   .header-top {
@@ -2121,15 +2126,15 @@ button {
 
   .nav-container {
     position: relative;
-    min-height: 66px;
+    min-height: 68px;
     justify-content: space-between;
-    padding: 8px 0;
-    gap: 12px;
+    padding: 9px 0;
+    gap: 10px;
   }
 
   .logo {
-    width: 168px;
-    height: 44px;
+    width: 158px;
+    height: 42px;
   }
 
   .brand-wordmark {
@@ -2142,23 +2147,23 @@ button {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 8px;
   }
 
   .site-nav {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 6px);
     left: 0;
     right: 0;
-    z-index: 220;
+    z-index: 260;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 10px;
+    gap: 2px;
+    padding: 8px;
     border: 1px solid rgba(126, 93, 46, 0.14);
     border-radius: 8px;
     background: rgba(255, 253, 249, 0.98);
-    box-shadow: 0 20px 42px rgba(45, 31, 14, 0.16);
+    box-shadow: 0 18px 38px rgba(45, 31, 14, 0.16);
     backdrop-filter: blur(20px);
     opacity: 0;
     pointer-events: none;
@@ -2174,18 +2179,27 @@ button {
     transform: translateY(0);
   }
 
+  .mobile-nav-backdrop {
+    position: fixed;
+    inset: 98px 0 0;
+    z-index: 180;
+    display: block;
+    background: rgba(36, 27, 19, 0.18);
+    backdrop-filter: blur(1px);
+  }
+
   .language-switcher {
     flex: 0 0 auto;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-color: rgba(199, 157, 92, 0.24);
     background: #fffaf2;
-    box-shadow: 0 8px 18px rgba(52, 36, 17, 0.09);
+    box-shadow: 0 6px 14px rgba(52, 36, 17, 0.08);
   }
 
   .mobile-menu-button {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2193,22 +2207,24 @@ button {
     border-radius: 4px;
     background: #fffaf2;
     color: #3f3429;
-    box-shadow: 0 8px 18px rgba(52, 36, 17, 0.09);
+    box-shadow: 0 6px 14px rgba(52, 36, 17, 0.08);
   }
 
   .language-flag {
-    width: 31px;
-    height: 31px;
+    width: 29px;
+    height: 29px;
     font-size: 18px;
   }
 
   .language-modal-backdrop {
-    padding: 18px;
+    align-items: flex-end;
+    padding: 18px 14px;
   }
 
   .language-modal {
-    max-height: calc(100vh - 36px);
-    padding: 20px;
+    max-height: calc(100svh - 36px);
+    padding: 18px;
+    border-radius: 8px;
   }
 
   .language-grid {
@@ -2216,11 +2232,11 @@ button {
   }
 
   .nav-link {
-    min-height: 44px;
+    min-height: 46px;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px 12px;
+    padding: 11px 12px;
     border: 0;
     border-radius: 4px;
     color: #4f463e;
@@ -2243,11 +2259,11 @@ button {
 
   .nav-cta {
     display: inline-flex;
-    min-height: 40px;
+    min-height: 38px;
     align-items: center;
-    padding: 10px 13px;
+    padding: 9px 12px;
     border-radius: 4px;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
 
   .hero,
@@ -2262,9 +2278,9 @@ button {
 
   .hero-overlay {
     align-items: flex-end;
-    padding: 42px 0 26px;
+    padding: 46px 0 30px;
     background:
-      linear-gradient(180deg, rgba(15, 12, 10, 0.08) 0%, rgba(15, 12, 10, 0.34) 38%, rgba(15, 12, 10, 0.86) 100%);
+      linear-gradient(180deg, rgba(15, 12, 10, 0.05) 0%, rgba(15, 12, 10, 0.36) 42%, rgba(15, 12, 10, 0.88) 100%);
   }
 
   .hero-content {
@@ -2273,7 +2289,7 @@ button {
 
   .hero-copy {
     max-width: none;
-    padding: 22px 0 4px;
+    padding: 24px 0 2px;
   }
 
   .eyebrow {
@@ -2286,14 +2302,14 @@ button {
   .hero-copy h1,
   .booking-hero-copy h1,
   .inner-hero h1 {
-    font-size: 2.36rem;
+    font-size: 2.26rem;
     line-height: 1;
   }
 
   .hero-copy > p:not(.eyebrow) {
     margin-top: 14px;
     font-size: 0.94rem;
-    line-height: 1.65;
+    line-height: 1.62;
   }
 
   .hero-actions {
@@ -2301,6 +2317,13 @@ button {
     grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 22px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .ghost-button {
+    min-height: 46px;
+    border-radius: 4px;
   }
 
   .ghost-button,
@@ -2317,8 +2340,8 @@ button {
 
   .page-content,
   .booking-page {
-    padding-top: 22px;
-    padding-bottom: 34px;
+    padding-top: 24px;
+    padding-bottom: 40px;
   }
 
   .content-section {
@@ -2332,12 +2355,16 @@ button {
   .section-heading h1,
   .section-heading h2,
   .inner-hero h1 {
-    font-size: 2.05rem;
+    font-size: 2rem;
     line-height: 1.08;
   }
 
   .section-heading p {
     line-height: 1.65;
+  }
+
+  .divider {
+    margin-bottom: 14px;
   }
 
   .promo-grid,
@@ -2364,26 +2391,26 @@ button {
   .booking-summary-card,
   .feature-card,
   .booking-highlight-card {
-    padding: 20px;
-    border-radius: 16px;
+    padding: 18px;
+    border-radius: 8px;
   }
 
   .image-card,
   .promo-card {
     min-height: 250px;
-    border-radius: 18px;
-    box-shadow: 0 14px 28px rgba(53, 37, 18, 0.12);
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(53, 37, 18, 0.11);
   }
 
   .travel-room-card {
     grid-template-columns: 1fr;
-    padding: 10px;
-    border-radius: 16px;
+    padding: 12px;
+    border-radius: 8px;
   }
 
   .travel-room-card img {
     height: 210px;
-    border-radius: 12px;
+    border-radius: 6px;
   }
 
   .travel-room-action {
@@ -2395,7 +2422,7 @@ button {
 
   .service-room-card img {
     height: 210px;
-    border-radius: 12px;
+    border-radius: 6px;
   }
 
   .room-facility-grid {
@@ -2413,6 +2440,7 @@ button {
     justify-items: start;
     align-items: center;
     padding: 16px;
+    border-radius: 8px;
   }
 
   .room-facility-item h3,
@@ -2435,14 +2463,14 @@ button {
     padding: 12px;
     border-radius: 8px;
     background: rgba(255, 253, 249, 0.96);
-    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 24px rgba(52, 36, 17, 0.07);
   }
 
   .booking-search-bar input,
   .booking-search-bar select,
   .guest-picker-trigger {
     min-height: 44px;
-    border-radius: 12px;
+    border-radius: 6px;
   }
 
   .guest-picker-panel {
@@ -2484,7 +2512,7 @@ button {
 
   .form-section {
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 8px;
   }
 
   .form-section-header {
@@ -2494,13 +2522,13 @@ button {
   .form-section-header span {
     width: 34px;
     height: 34px;
-    border-radius: 12px;
+    border-radius: 8px;
   }
 
   .booking-form input,
   .booking-form select,
   .booking-form textarea {
-    border-radius: 12px;
+    border-radius: 6px;
     font-size: 16px;
   }
 
@@ -2512,11 +2540,11 @@ button {
   .simple-contact-item {
     min-height: auto;
     padding: 18px;
-    border-radius: 16px;
+    border-radius: 8px;
   }
 
   .simple-contact-note {
-    border-radius: 16px;
+    border-radius: 8px;
   }
 
   .footer-grid {
