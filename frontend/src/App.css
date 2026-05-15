@@ -16,6 +16,7 @@ body {
   font-family: "Manrope", sans-serif;
   background: #f7f3ec;
   color: #1f1812;
+  overflow-x: hidden;
 }
 
 button,
@@ -2076,20 +2077,40 @@ button {
 }
 
 @media (max-width: 640px) {
+  body {
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
+    background:
+      linear-gradient(180deg, #fffaf2 0%, #f5ecdf 42%, #fffaf2 100%);
+  }
+
   .page-shell,
-  .nav-container {
-    width: min(100% - 32px, 1200px);
+  .nav-container,
+  .header-top-inner {
+    width: min(100% - 28px, 1200px);
+  }
+
+  .navbar {
+    position: sticky;
+    background: rgba(255, 253, 249, 0.92);
+    border-bottom-color: rgba(199, 157, 92, 0.16);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 10px 26px rgba(45, 31, 14, 0.08);
+  }
+
+  .header-top {
+    display: none;
   }
 
   .nav-container {
-    flex-wrap: wrap;
+    min-height: 64px;
     justify-content: space-between;
-    padding: 10px 0 12px;
+    padding: 8px 0;
+    gap: 12px;
   }
 
   .logo {
-    width: 190px;
-    height: 50px;
+    width: 168px;
+    height: 44px;
   }
 
   .brand-wordmark {
@@ -2097,29 +2118,43 @@ button {
   }
 
   .nav-actions {
-    width: 100%;
+    width: auto;
+    flex: 0 0 auto;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 0;
   }
 
   .site-nav {
-    justify-content: center;
-    flex: 1;
-    min-width: 0;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 220;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid rgba(126, 93, 46, 0.14);
+    border-radius: 26px;
+    background: rgba(34, 25, 17, 0.93);
+    box-shadow: 0 22px 50px rgba(20, 14, 8, 0.28);
+    backdrop-filter: blur(20px);
   }
 
   .language-switcher {
     flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
+    width: 40px;
+    height: 40px;
+    border-color: rgba(199, 157, 92, 0.24);
+    background: #fffaf2;
+    box-shadow: 0 8px 18px rgba(52, 36, 17, 0.09);
   }
 
   .language-flag {
-    width: 28px;
-    height: 28px;
+    width: 31px;
+    height: 31px;
     font-size: 18px;
   }
 
@@ -2137,26 +2172,153 @@ button {
   }
 
   .nav-link {
-    min-height: 36px;
-    padding: 8px 9px;
-    font-size: 0.78rem;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 6px;
+    border: 0;
+    border-radius: 18px;
+    color: rgba(255, 248, 238, 0.72);
+    font-size: 0.72rem;
+    line-height: 1.05;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .nav-link:hover {
+    color: #fff8ee;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-link.active {
+    color: #2b2117;
+    background: linear-gradient(135deg, #f0d39e, #c79d5c);
+    box-shadow: 0 8px 18px rgba(199, 157, 92, 0.22);
   }
 
   .hero,
   .hero-overlay {
-    min-height: calc(100vh - 138px);
+    min-height: calc(100svh - 64px);
+  }
+
+  .hero {
+    background-position: center top;
+    animation: none;
+  }
+
+  .hero-overlay {
+    align-items: flex-end;
+    padding: 42px 0 26px;
+    background:
+      linear-gradient(180deg, rgba(15, 12, 10, 0.08) 0%, rgba(15, 12, 10, 0.34) 38%, rgba(15, 12, 10, 0.86) 100%);
+  }
+
+  .hero-content {
+    width: min(100% - 28px, 1200px);
+  }
+
+  .hero-copy {
+    max-width: none;
+    padding: 22px 0 4px;
+  }
+
+  .eyebrow {
+    margin-bottom: 14px;
+    padding: 7px 10px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
   }
 
   .hero-copy h1,
   .booking-hero-copy h1,
   .inner-hero h1 {
-    font-size: 2.45rem;
+    font-size: 2.36rem;
+    line-height: 1;
+  }
+
+  .hero-copy > p:not(.eyebrow) {
+    margin-top: 14px;
+    font-size: 0.94rem;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .ghost-button,
+  .secondary-button {
+    justify-content: center;
+  }
+
+  .location {
+    margin-top: 16px;
+    align-items: flex-start;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .page-content,
+  .booking-page {
+    padding-top: 22px;
+    padding-bottom: 34px;
+  }
+
+  .content-section {
+    margin-top: 28px;
+  }
+
+  .simple-page-header {
+    margin-bottom: 20px;
+  }
+
+  .section-heading h1,
+  .section-heading h2,
+  .inner-hero h1 {
+    font-size: 2.05rem;
+    line-height: 1.08;
+  }
+
+  .section-heading p {
+    line-height: 1.65;
   }
 
   .promo-grid,
   .feature-grid.three-column,
   .booking-highlights {
     grid-template-columns: 1fr;
+  }
+
+  .feature-image-grid,
+  .promo-grid,
+  .travel-room-list,
+  .service-room-list {
+    display: flex;
+    gap: 14px;
+    margin-right: -14px;
+    padding: 2px 14px 12px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .feature-image-grid::-webkit-scrollbar,
+  .promo-grid::-webkit-scrollbar,
+  .travel-room-list::-webkit-scrollbar,
+  .service-room-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feature-image-grid > *,
+  .promo-grid > *,
+  .travel-room-list > *,
+  .service-room-list > * {
+    flex: 0 0 min(86vw, 350px);
+    scroll-snap-align: start;
   }
 
   .inner-hero,
@@ -2168,34 +2330,60 @@ button {
   .booking-summary-card,
   .feature-card,
   .booking-highlight-card {
-    padding: 24px;
+    padding: 20px;
+    border-radius: 16px;
   }
 
   .image-card,
   .promo-card {
-    min-height: 260px;
+    min-height: 250px;
+    border-radius: 18px;
+    box-shadow: 0 14px 28px rgba(53, 37, 18, 0.12);
   }
 
   .travel-room-card {
     grid-template-columns: 1fr;
+    padding: 10px;
+    border-radius: 16px;
   }
 
   .travel-room-card img {
-    height: 220px;
+    height: 210px;
+    border-radius: 12px;
   }
 
   .travel-room-action {
     grid-template-columns: 1fr;
     justify-items: stretch;
+    text-align: left;
+    padding: 10px 2px 2px;
   }
 
   .service-room-card img {
     height: 210px;
+    border-radius: 12px;
   }
 
   .room-facility-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .room-facility-item {
+    min-height: auto;
+    grid-template-columns: 46px minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .room-facility-item h3,
+  .room-facility-item p {
+    text-align: left;
   }
 
   .room-facility-item h3 {
@@ -2204,5 +2392,101 @@ button {
 
   .location-map {
     min-height: 210px;
+  }
+
+  .booking-search-bar {
+    position: sticky;
+    top: 78px;
+    z-index: 40;
+    padding: 12px;
+    border-radius: 18px;
+    background: rgba(255, 253, 249, 0.96);
+    backdrop-filter: blur(16px);
+  }
+
+  .booking-search-bar input,
+  .booking-search-bar select,
+  .guest-picker-trigger {
+    min-height: 44px;
+    border-radius: 12px;
+  }
+
+  .guest-picker-panel {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+    top: auto;
+    width: auto;
+    max-height: calc(100svh - 170px);
+    overflow: auto;
+    border-radius: 20px;
+  }
+
+  .booking-step-title {
+    margin: 20px 0 12px;
+  }
+
+  .booking-step-title h2 {
+    font-size: 1.22rem;
+  }
+
+  .booking-content {
+    margin-top: 12px;
+  }
+
+  .guest-booking-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .booking-details-sidebar {
+    order: 2;
+  }
+
+  .booking-form-panel {
+    order: 1;
+  }
+
+  .form-section {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .form-section-header {
+    gap: 10px;
+  }
+
+  .form-section-header span {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+  }
+
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea {
+    border-radius: 12px;
+    font-size: 16px;
+  }
+
+  .simple-contact-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .simple-contact-item {
+    min-height: auto;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .simple-contact-note {
+    border-radius: 16px;
+  }
+
+  .footer-grid {
+    padding-top: 38px;
+    padding-bottom: 34px;
   }
 }
