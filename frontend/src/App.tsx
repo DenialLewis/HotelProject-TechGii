@@ -120,7 +120,11 @@ const App: React.FC = () => {
           </button>
 
           <div className="nav-actions">
-            <nav className={isMobileNavOpen ? "site-nav mobile-open" : "site-nav"} aria-label="Primary navigation">
+            <nav
+              id="primary-navigation"
+              className={isMobileNavOpen ? "site-nav mobile-open" : "site-nav"}
+              aria-label="Primary navigation"
+            >
               {navItems.map((item) => (
                 <button
                   key={item.key}
@@ -156,6 +160,7 @@ const App: React.FC = () => {
               type="button"
               aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMobileNavOpen}
+              aria-controls="primary-navigation"
               onClick={() => setIsMobileNavOpen((isOpen) => !isOpen)}
             >
               {isMobileNavOpen ? <X size={21} /> : <Menu size={21} />}
@@ -163,6 +168,15 @@ const App: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {isMobileNavOpen && (
+        <button
+          className="mobile-nav-backdrop"
+          type="button"
+          aria-label="Close navigation menu"
+          onClick={() => setIsMobileNavOpen(false)}
+        />
+      )}
 
       <div className="page-transition" key={`${currentPage}-${language}`}>
         {renderPage()}
