@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Menu, X } from "lucide-react";
 import "./App.css";
 
 import dashboardLogo from "./assets/Dashboard.png";
@@ -49,6 +49,7 @@ const displayLanguages: DisplayLanguage[] = [
 const App: React.FC = () => {
   const [language, setLanguage] = useState<DisplayLanguageCode>("en");
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<PageView>("home");
   const currentLanguage = displayLanguages.find((option) => option.code === language) ?? displayLanguages[0];
   const roomTypes = getRoomTypes(currentLanguage.code);
@@ -59,6 +60,12 @@ const App: React.FC = () => {
     setLanguage(nextLanguage);
     setSelectedRoom(getRoomTypes(nextLanguage)[0]);
     setIsLanguageModalOpen(false);
+    setIsMobileNavOpen(false);
+  };
+
+  const handleNavigate = (nextPage: PageView) => {
+    setCurrentPage(nextPage);
+    setIsMobileNavOpen(false);
   };
 
   const navItems: Array<{ key: PageView; label: string }> = [
@@ -90,7 +97,7 @@ const App: React.FC = () => {
       return <ContactPage copy={copy.contact} />;
     }
 
-    return <HomePage copy={copy.home} onNavigate={setCurrentPage} />;
+    return <HomePage copy={copy.home} onNavigate={handleNavigate} />;
   };
 
   return (
@@ -105,7 +112,7 @@ const App: React.FC = () => {
         </div>
 
         <div className="nav-container">
-          <button className="logo-button" onClick={() => setCurrentPage("home")} type="button">
+          <button className="logo-button" onClick={() => handleNavigate("home")} type="button">
             <span className="logo">
               <img src={dashboardLogo} alt={`${copy.brand.name} logo`} />
             </span>
@@ -113,12 +120,12 @@ const App: React.FC = () => {
           </button>
 
           <div className="nav-actions">
-            <nav className="site-nav" aria-label="Primary navigation">
+            <nav className={isMobileNavOpen ? "site-nav mobile-open" : "site-nav"} aria-label="Primary navigation">
               {navItems.map((item) => (
                 <button
                   key={item.key}
                   className={currentPage === item.key ? "nav-link active" : "nav-link"}
-                  onClick={() => setCurrentPage(item.key)}
+                  onClick={() => handleNavigate(item.key)}
                   type="button"
                 >
                   {item.label}
@@ -130,15 +137,28 @@ const App: React.FC = () => {
               className="language-switcher"
               aria-label={copy.nav.languageLabel}
               type="button"
-              onClick={() => setIsLanguageModalOpen(true)}
+              onClick={() => {
+                setIsLanguageModalOpen(true);
+                setIsMobileNavOpen(false);
+              }}
             >
               <span className="language-flag" aria-hidden="true">
                 <span className={`flag-image flag-${currentLanguage.flag}`} />
               </span>
             </button>
 
-            <button className="nav-cta" onClick={() => setCurrentPage("book")} type="button">
+            <button className="nav-cta" onClick={() => handleNavigate("book")} type="button">
               {copy.nav.book}
+            </button>
+
+            <button
+              className="mobile-menu-button"
+              type="button"
+              aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isMobileNavOpen}
+              onClick={() => setIsMobileNavOpen((isOpen) => !isOpen)}
+            >
+              {isMobileNavOpen ? <X size={21} /> : <Menu size={21} />}
             </button>
           </div>
         </div>
@@ -215,7 +235,7 @@ const App: React.FC = () => {
                 key={item.key}
                 className="footer-link"
                 type="button"
-                onClick={() => setCurrentPage(item.key)}
+                onClick={() => handleNavigate(item.key)}
               >
                 {item.label}
               </button>
